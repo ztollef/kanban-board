@@ -1,29 +1,27 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import initialData from './initial-data';
 import Column from './components/column/Column';
 import {DragDropContext} from 'react-beautiful-dnd';
 
+import AddTaskForm from './components/add-task/Add-Task.js';
 
 function App() {
 
-  const [tasks, setTasks] = useState(initialData.tasks);
-  const [columns, setColumns] = useState(initialData.columns);
-  const [columnOrder, setColumnOrder] = useState(initialData.columnOrder);
-  
+  const [state, setState] = useState(initialData);
 
   const onDragStart = () => {
     document.body.style.color = 'orange';
     document.body.style.transition = 'background-color 0.2s ease';
-  }
+  };
 
   const onDragUpdate = update => {
     const { destination } = update;
     const opacity = destination ?
-      destination.index / Object.keys(tasks).length :
+      destination.index / Object.keys(state.tasks).length :
       0;
-    document.body.style.backgroundColor = `rgba(153, 141, 217, ${opacity})`
-  }
+    document.body.style.backgroundColor = `rgba(153, 141, 217, ${opacity})`;
+  };
 
   const onDragEnd = result => {
     document.body.style.color = 'inherit';
@@ -38,8 +36,8 @@ function App() {
       return;
     }
 
-    const start = columns[source.droppableId];
-    const finish = columns[destination.droppableId];
+    const start = state.columns[source.droppableId];
+    const finish = state.columns[destination.droppableId];
 
     if (start === finish) {
  
@@ -50,14 +48,17 @@ function App() {
       const newColumn = {
         ...finish, 
         taskIds: newTaskIds,
-      }
+      };
   
-      const newColumns = {
-        ...columns,
-        [newColumn.id]: newColumn,
-      }
+      const newState = {
+        ...state,
+        columns: {
+          ...state.columns,
+          [newColumn.id]: newColumn,
+        }
+      };
       
-    setColumns(newColumns);
+    setState(newState);
     return;
     }
 
@@ -75,24 +76,45 @@ function App() {
       taskIds: finishTaskIds,
     };
 
-    const newColumns = {
-      ...columns,
-      [newStart.id]: newStart,
-      [newFinish.id]: newFinish,
+    const newState = {
+      ...state,
+      columns: {
+        ...state.columns,
+        [newStart.id]: newStart,
+        [newFinish.id]: newFinish,
+      }
     };
-    setColumns(newColumns)
-  }
+    setState(newState);
+  };
+
+  const addTask = (taskId, taskDetails, taskOwner ) => {
+    const newTask = {
+      taskId,
+      taskDetails,
+      taskOwner,
+    };
+
+    const newState = {
+      ...state,
+      columns: {
+        ...state.columns,
+        
+      }
+    }
+    setState();
+  };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="columns-container">
-        {columnOrder.map((columnId) => {
-          const column = columns[columnId];
-          const columnTasks = column.taskIds.map(taskId => tasks[taskId]);
-          return <Column key={column.id} column={column} tasks={columnTasks} />
+        {state.columnOrder.map((columnId) => {
+          const column = state.columns[columnId];
+          const columnTasks = column.taskIds.map(taskId => state.tasks[taskId]);
+          return <Column key={column.id} column={column} tasks={columnTasks}/>
         }
         )}
-      </div>
+      </div> 
+      <AddTaskForm addTask={addTask}/>
     </DragDropContext>
   );
 }

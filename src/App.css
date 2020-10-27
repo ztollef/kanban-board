@@ -1,9 +1,6 @@
 .columns-container {
   margin: 8px;
-  border: 1px solid lightgrey;
-  border-radius: 2px;
   min-height: 80vh;
-
   display: flex;
   justify-content: space-evenly;
 }

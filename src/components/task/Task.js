@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
-import { Draggable } from 'react-beautiful-dnd'
-import './task.css'
+import React, {useState} from 'react';
+import { Draggable } from 'react-beautiful-dnd';
+import './task.css';
 
 const Task = (props) => {
+
     return (
         <Draggable draggableId={props.task.id} index={props.index}>
             {(provided, snapshot) => (
@@ -11,7 +12,9 @@ const Task = (props) => {
                 {...provided.draggableProps}
                 {...provided.dragHandleProps} 
                 >
-                {props.task.content}
+                    <h4>{props.task.id}</h4>
+                    <p>{props.task.content}</p>
+                    <p>Owner: {props.task.owner}</p>
                 </div>
             )
             }
