@@ -1,36 +1,18 @@
-const initialData = {
-  tasks: {
-    'task-1': { id: 'task-1', content: 'JWT authentication bug', owner: 'Zach' },
-    'task-2': { id: 'task-2', content: 'Renew SSL certs ', owner: 'Billy' },
-    'task-3': { id: 'task-3', content: 'Update text on homepage', owner: 'Adesh' },
-    'task-4': { id: 'task-4', content: 'Add photo gallery feature', owner: 'Marge' },
-  },
-  columns: {
-    'column-1': {
-      id: 'column-1',
-      title: 'Backlog',
-      taskIds: ['task-1', 'task-3', ]
-    },
-    
-    'column-2': {
-      id: 'column-2',
-      title: 'In progress',
-      taskIds: []
-    },
-    
-    'column-3': {
-      id: 'column-3',
-      title: 'In review',
-      taskIds: ['task-2']
-    },
+import {v4 as uuidv4} from 'uuid';
 
-    'column-4': {
-      id: 'column-4',
-      title: 'Ready for release',
-      taskIds: ['task-4']
-    }
-  },
-  columnOrder: ['column-1', 'column-2', 'column-3', 'column-4'],
-}
+const initialData = {
+  tasks: [
+    { id: 'task-1', title: 'JWT authentication bug', content: 'Getting a 404 error', priority: 'High', type: 'bug', owner: 'Zach'},
+    { id: 'task-2', title: 'Renew SSL certs', content: 'Use DigiCert for Certificate Authority', priority: 'High', type: 'DevOps', owner: 'Billy' },
+    { id: 'task-3', title: 'Update text on homepage', content: 'Refer to email from Beth', priority: 'High', type: 'maintanence', owner: 'Adesh' },
+    { id: 'task-4', title: 'Add photo gallery feature', content: 'Add photo gallery feature', priority: 'High', type: 'enhancement', owner: 'Marge' },
+],
+  columns : [
+    { id: 'column-1', title: 'Backlog', taskIds: ['task-1', 'task-3', ] },
+    { id: 'column-2', title: 'In progress', taskIds: [] },
+    { id: 'column-3', title: 'In review', taskIds: ['task-2']},
+    { id: 'column-4', title: 'Ready for release', taskIds: ['task-4']},
+  ],
+};
 
 export default initialData;

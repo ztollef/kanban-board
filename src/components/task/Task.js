@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import './task.css';
 
@@ -12,9 +12,11 @@ const Task = (props) => {
                 {...provided.draggableProps}
                 {...provided.dragHandleProps} 
                 >
-                    <h4>{props.task.id}</h4>
+                    <h4>{props.task.title}</h4>
                     <p>{props.task.content}</p>
-                    <p>Owner: {props.task.owner}</p>
+                    <p><span style={{fontWeight: "bold"}}>Priority</span>: {props.task.priority}</p>
+                    <p><span style={{fontWeight: "bold"}}>Owner</span>: {props.task.owner}</p>
+                    <p><span style={{fontWeight: "bold"}}>Type</span>: {props.task.type}</p>
                 </div>
             )
             }

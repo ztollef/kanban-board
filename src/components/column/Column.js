@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Task from '../task/Task.js';
 import {Droppable} from 'react-beautiful-dnd';
 import './column.css';
@@ -19,5 +19,4 @@ const Column = (props) => {
     )
 }
 
-
-export default Column
+export default Column;
